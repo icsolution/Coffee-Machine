@@ -1,13 +1,55 @@
-water = int(input('Write how many ml of water the coffee machine has:\n'))
-milk = int(input('Write how many ml of milk the coffee machine has:\n'))
-beans = int(input('Write how many g of coffee beans the coffee machine has:\n'))
-cups = int(input('Write how many cups of coffee you will need:\n'))
-available = min(water // 200, milk // 50, beans // 15)
+class CoffeeMachine:
 
-if cups == available:
-    print('Yes, I can make that amount of coffee')
-elif cups > available:
-    print(f'No, I can make only {available} cups of coffee')
-else:
-    print(f'Yes, I can make that amount of coffee (and even {available - cups} more than that)')
-    
+    def __init__(self):
+        self.inventory = {'water': 400, 'milk': 540, 'coffee beans': 120, 'disposable cups': 9, 'money': 550}
+
+    def state(self):
+        print('The coffee machine has:')
+        for item in self.inventory:
+            print(f'{self.inventory[item]} of {item}')
+        print()
+
+    def action(self):
+        action = input('Write action (buy, fill, take):\n')
+        print()
+        if action == 'buy':
+            self.buy()
+        elif action == 'fill':
+            self.fill()
+        else:
+            self.take()
+
+    def buy(self):
+        espresso = {'water': 250, 'coffee beans': 16, 'disposable cups': 1, 'money': -4}
+        latte = {'water': 350, 'milk': 75, 'coffee beans': 20, 'disposable cups': 1, 'money': -7}
+        cappuccino = {'water': 200, 'milk': 100, 'coffe beans': 12, 'disposable cups': 1, 'money': -6}
+        choices = [espresso, latte, cappuccino]
+        choice = choices[int(input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:\n')) - 1]
+        for ingredient in self.inventory:
+            if ingredient in choice:
+                self.inventory[ingredient] -= choice[ingredient]
+        print()
+        self.state()
+
+    def fill(self):
+        self.inventory['water'] += int(input('Write how many ml of water you want to add:\n'))
+        self.inventory['milk'] += int(input('Write how many ml of milk you want to add:\n'))
+        self.inventory['coffee beans'] += int(input('Write how many grams of coffee beans you want to add:\n'))
+        self.inventory['disposable cups'] += int(input('Write how many disposable coffee cups you want to add:\n'))
+        print()
+        self.state()
+
+    def take(self):
+        print(f'I gave you ${self.inventory["money"]}')
+        self.inventory['money'] = 0
+        print()
+        self.state()
+
+
+def main():
+    on = CoffeeMachine()
+    on.state()
+    on.action()
+
+
+main()
