@@ -22,7 +22,7 @@ class CoffeeMachine:
     def buy(self):
         espresso = {'water': 250, 'coffee beans': 16, 'disposable cups': 1, 'money': -4}
         latte = {'water': 350, 'milk': 75, 'coffee beans': 20, 'disposable cups': 1, 'money': -7}
-        cappuccino = {'water': 200, 'milk': 100, 'coffe beans': 12, 'disposable cups': 1, 'money': -6}
+        cappuccino = {'water': 200, 'milk': 100, 'coffee beans': 12, 'disposable cups': 1, 'money': -6}
         choices = [espresso, latte, cappuccino]
         choice = choices[int(input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:\n')) - 1]
         for ingredient in self.inventory:
