@@ -2,6 +2,14 @@ class CoffeeMachine:
 
     def __init__(self):
         self.inventory = {'water': 400, 'milk': 540, 'coffee beans': 120, 'disposable cups': 9, 'money': 550}
+        self.action()
+
+    def select(self):
+        selection = input()
+        if selection.isdigit():
+            return int(selection)
+        else:
+            return selection
 
     def state(self):
         print('The coffee machine has:')
@@ -14,7 +22,8 @@ class CoffeeMachine:
         self.action()
 
     def action(self):
-        action = input('Write action (buy, fill, take, remaining, exit):\n')
+        print('Write action (buy, fill, take, remaining, exit):')
+        action = self.select()
         print()
         if action == 'buy':
             self.buy()
@@ -32,7 +41,8 @@ class CoffeeMachine:
         latte = {'water': 350, 'milk': 75, 'coffee beans': 20, 'disposable cups': 1, 'money': -7}
         cappuccino = {'water': 200, 'milk': 100, 'coffee beans': 12, 'disposable cups': 1, 'money': -6}
         choices = [espresso, latte, cappuccino]
-        selection = input('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:\n')
+        print('What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:')
+        selection = self.select()
         if selection == 'back':
             print()
             self.action()
@@ -52,10 +62,14 @@ class CoffeeMachine:
                         self.action()
 
     def fill(self):
-        self.inventory['water'] += int(input('Write how many ml of water you want to add:\n'))
-        self.inventory['milk'] += int(input('Write how many ml of milk you want to add:\n'))
-        self.inventory['coffee beans'] += int(input('Write how many grams of coffee beans you want to add:\n'))
-        self.inventory['disposable cups'] += int(input('Write how many disposable coffee cups you want to add:\n'))
+        print('Write how many ml of water you want to add:')
+        self.inventory['water'] += self.select()
+        print('Write how many ml of milk you want to add:')
+        self.inventory['milk'] += self.select()
+        print('Write how many grams of coffee beans you want to add:')
+        self.inventory['coffee beans'] += self.select()
+        print('Write how many disposable coffee cups you want to add:')
+        self.inventory['disposable cups'] += self.select()
         print()
         self.action()
 
@@ -65,10 +79,4 @@ class CoffeeMachine:
         print()
         self.action()
 
-
-def main():
-    on = CoffeeMachine()
-    on.action()
-
-
-main()
+CoffeeMachine()
